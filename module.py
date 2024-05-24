@@ -1,5 +1,3 @@
-#! /usr/bin/python3
-
 import os
 import asyncio
 import getpass
@@ -19,7 +17,6 @@ USER = getpass.getuser()
 
 ICONS = [
     ('class=*.slack.com', '\uf3ef'),
-
     ('class=Chromium', '\ue743'),
     ('class=Firefox', '\uf738'),
     ('class=URxvt', '\ue795'),
@@ -28,7 +25,7 @@ ICONS = [
 
     ('name=mutt', '\uf199'),
 
-    ('*', '\ufaae'),
+    ('*', ''),
 ]
 
 FORMATERS = {
@@ -38,7 +35,7 @@ FORMATERS = {
 }
 
 SCRIPT_DIR = os.path.dirname(os.path.realpath(__file__))
-COMMAND_PATH = os.path.join(SCRIPT_DIR, 'command.py')
+COMMAND_PATH = os.path.join(SCRIPT_DIR, '.venv/bin/python command.py')
 
 icon_resolver = IconResolver(ICONS)
 
@@ -87,8 +84,8 @@ def make_title(app):
 
     if app.focused:
         out = '%{F#fff}' + out + '%{F-}'
-
-    return '%%{A1:%s %s:}%s%%{A-}' % (COMMAND_PATH, app.id, out)
+    return "%{A1:'"+ f'{COMMAND_PATH}'+ f' {app.id}' +"':}" + f'{out}' + " %{A}"
+    #return '%%{A1:%s %s:}%s%%{A-}' % (COMMAND_PATH, app.id, out)
 
 
 def get_prefix(app):
